@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Saver</title>
+    <style>
+        #output {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            max-width: 300px;
+            white-space: pre-wrap; /* Ensures that the copied content preserves line breaks */
+        }
+    </style>
+</head>
+<body>
+    <h2>Save Input Data</h2>
+    
+    <label for="label">Label:</label>
+    <input type="text" id="label" name="label"><br><br>
+    
+    <label for="url">URL:</label>
+    <input type="text" id="url" name="url"><br><br>
+    
+    <button onclick="saveData()">Confirm</button>
+    <button onclick="clearOutput()">Clear</button>
+    <button onclick="copyToClipboard()">Copy</button>
+
+    <div id="output"></div>
+
+    <script>
+        // Arrays to hold the input data
+        let labels = [];
+        let urls = [];
+
+        function saveData() {
+            // Get the values from the input fields
+            const labelValue = document.getElementById("label").value;
+            const urlValue = document.getElementById("url").value.toLowerCase();
+
+            // Save to arrays
+            labels.push(labelValue);
+            urls.push(urlValue);
+
+            // Display the data in the output div without overwriting previous outputs
+            let outputDiv = document.getElementById("output");
+            let newOutput = document.createElement("p");
+            newOutput.innerHTML = `{ label: '${labelValue}', url: '${urlValue}' },`;
+            outputDiv.appendChild(newOutput);
+        }
+
+        function clearOutput() {
+            // Clear the output box content
+            document.getElementById("output").innerHTML = '';
+        }
+
+        function copyToClipboard() {
+            // Get the content of the output box
+            const outputContent = document.getElementById("output").innerText;
+
+            // Create a temporary textarea to copy the content to clipboard
+            let tempTextArea = document.createElement("textarea");
+            tempTextArea.value = outputContent;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempTextArea);
+
+
+        }
+    </script>
+</body>
+</html>
