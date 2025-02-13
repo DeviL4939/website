@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Popup Trigger</title>
+</head>
+<body>
+    <script>
+        // Send a message to Tampermonkey when the page loads
+        window.onload = function() {
+            window.opener?.postMessage("togglePopup", "*");
+            window.close(); // Close the tab after sending the message
+        };
+    </script>
+</body>
+</html>
