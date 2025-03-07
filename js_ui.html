@@ -1,75 +1,69 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Js Ui</title>
-    <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/15525/15525512.png">
+    <title>Js UI</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/15525/15525512.png" type="image/png">
     <style>
-        #output {
-            margin-top: 20px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            max-width: 300px;
-            white-space: pre-wrap; /* Ensures that the copied content preserves line breaks */
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Arial', sans-serif; }
+        body { background-color: #121212; color: #EEE; display: flex; justify-content: center; align-items: flex-start; height: 100vh; padding: 20px; overflow: hidden; }
+        .container { background: #1E1E1E; padding: 30px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); max-width: 450px; width: 100%; text-align: center; }
+        h2 { color: #FFF; font-size: 24px; margin-bottom: 20px; }
+        label { font-size: 16px; color: #BBB; display: block; margin-bottom: 5px; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 6px; background: #222; border: 1px solid #333; color: #EEE; font-size: 16px; outline: none; transition: border-color 0.3s ease; }
+        input:focus { border-color: #4CAF50; }
+        .button-row { display: flex; justify-content: space-between; margin-top: 20px; }
+        button { flex: 1; padding: 12px; margin: 0 5px; border: none; border-radius: 6px; font-size: 16px; color: white; cursor: pointer; transition: background-color 0.3s ease; }
+        button:hover { background-color: #45a049; }
+        .clear-btn { background-color: #FF5722; }
+        .clear-btn:hover { background-color: #e64a19; }
+        .copy-btn { background-color: #008CBA; }
+        .copy-btn:hover { background-color: #007B9F; }
+        #output { margin-top: 20px; padding: 15px; background: #222; color: #FFF; border-radius: 6px; max-height: 200px; overflow-y: auto; text-align: left; white-space: pre-wrap; border: 1px solid #333; }
     </style>
 </head>
 <body>
-    <h2>Save Input Data</h2>
-    
-    <label for="label">Label:</label>
-    <input type="text" id="label" name="label"><br><br>
-    
-    <label for="url">URL:</label>
-    <input type="text" id="url" name="url"><br><br>
-    
-    <button onclick="saveData()">Confirm</button>
-    <button onclick="clearOutput()">Clear</button>
-    <button onclick="copyToClipboard()">Copy</button>
-
-    <div id="output"></div>
-
-    <script>
-        // Arrays to hold the input data
-        let labels = [];
-        let urls = [];
-
-        function saveData() {
-            // Get the values from the input fields
-            const labelValue = document.getElementById("label").value;
-            const urlValue = document.getElementById("url").value.toLowerCase();
-
-            // Save to arrays
-            labels.push(labelValue);
-            urls.push(urlValue);
-
-            // Display the data in the output div without overwriting previous outputs
-            let outputDiv = document.getElementById("output");
-            let newOutput = document.createElement("p");
-            newOutput.innerHTML = `{ label: '${labelValue}', url: '${urlValue}' },`;
-            outputDiv.appendChild(newOutput);
-        }
-
-        function clearOutput() {
-            // Clear the output box content
-            document.getElementById("output").innerHTML = '';
-        }
-
-        function copyToClipboard() {
-            // Get the content of the output box
-            const outputContent = document.getElementById("output").innerText;
-
-            // Create a temporary textarea to copy the content to clipboard
-            let tempTextArea = document.createElement("textarea");
-            tempTextArea.value = outputContent;
-            document.body.appendChild(tempTextArea);
-            tempTextArea.select();
-            document.execCommand("copy");
-            document.body.removeChild(tempTextArea);
-
-
-        }
-    </script>
+    <div class="container">
+        <h2>Generate</h2>
+        <label for="label">Label:</label>
+        <input type="text" id="label" placeholder="Enter label">
+        <label for="url">URL:</label>
+        <input type="text" id="url" placeholder="Enter URL">
+        <div class="button-row">
+            <button style="background-color: #4CAF50;" onclick="saveData()">Confirm</button>
+            <button class="clear-btn" onclick="clearOutput()">Clear</button>
+            <button class="copy-btn" onclick="copyToClipboard()">Copy</button>
+        </div>
+        <div id="output"></div>
+    </div><script>
+    const saveData = () => {
+        const label = document.getElementById("label").value, url = document.getElementById("url").value.toLowerCase();
+        if (!label || !url) return document.getElementById(label ? "url" : "label").focus();
+        document.getElementById("output").innerHTML += `<p>{ label: '${label}', url: '${url}' },</p>`;
+        document.getElementById("label").value = '';
+        document.getElementById("url").value = '';
+        document.getElementById("label").focus();
+    };
+    const clearOutput = () => { document.getElementById("output").innerHTML = ''; };
+    const copyToClipboard = () => {
+        const text = document.getElementById("output").innerText;
+        if (!text) return alert("No data to copy!");
+        const tempTextArea = document.createElement("textarea");
+        tempTextArea.value = text;
+        document.body.appendChild(tempTextArea);
+        tempTextArea.select();
+        document.execCommand("copy");
+        document.body.removeChild(tempTextArea);
+        alert("Copied to clipboard!");
+    };
+    document.getElementById("label").addEventListener('keydown', (e) => {
+        if (e.key === "Enter" && document.getElementById("label").value && document.getElementById("url").value) saveData();
+        else if (e.key === "Enter") document.getElementById("url").focus();
+    });
+    document.getElementById("url").addEventListener('keydown', (e) => {
+        if (e.key === "Enter" && document.getElementById("label").value && document.getElementById("url").value) saveData();
+        else if (e.key === "Enter") document.getElementById("label").focus();
+    });
+</script>
 </body>
 </html>
