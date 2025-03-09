@@ -338,19 +338,7 @@
         });
         buttonList.className = 'secret-tabs-list';
 
-        const buttons = [
-            { label: 'Js_UI', url: 'https://devil4939.github.io/website/js_ui.html' },
-            { label: 'Pornhub', url: 'https://www.pornhub.com' },
-            { label: 'Rosie and Alena', url: 'https://www.pornhub.com/model/rosie-and-alena/videos?o=mr' },
-            { label: 'CreamySpot', url: 'https://www.pornhub.com/model/creamy-spot/videos?o=mr' },
-            { label: 'MeeHutao', url: 'https://www.pornhub.com/model/meehutao/videos?o=mr' },
-            { label: 'Miss Tanuki San', url: 'https://www.pornhub.com/model/miss-tanuki-san/videos?o=mr' },
-            { label: 'Jane Laneee', url: 'https://www.pornhub.com/model/jane-laneee/videos?o=mr' },
-            { label: 'AshMochi69', url: 'https://www.pornhub.com/model/ashmochi69/videos?o=mr' },
-            { label: 'Eve', url: 'https://www.pornhub.com/model/eve/videos?o=mr' },
-            { label: 'Leah Meow', url: 'https://www.pornhub.com/model/leah-meow?o=mr' },
-            { label: 'SpiritJOI', url: 'https://www.pornhub.com/model/spiritjoi?o=mr' },
-        ];
+       // buttons
 
         buttons.forEach(({label, url}) => {
             const btn = document.createElement('button');
