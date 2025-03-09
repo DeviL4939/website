@@ -1,10 +1,10 @@
 
 // ==UserScript==
-// @name         Modern Popup UI on Continuous Wave Gesture
+// @name         Pop up ui
 // @namespace    http://tampermonkey.net/
 // @version      2.5
-// @description  Open a modern-looking popup UI on continuous wave gesture
-// @author       Your Name
+// @description  gesture based popup
+// @author       DeviL4939
 // @match        *://*/*
 // @run-at       document-start
 // ==/UserScript==
