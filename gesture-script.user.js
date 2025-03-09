@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name         Pop up ui
 // @namespace    http://tampermonkey.net/
-// @version      2.5
+// @version      1
 // @description  gesture based popup
 // @author       DeviL4939
 // @match        *://*/*
