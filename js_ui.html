@@ -54,7 +54,6 @@
         tempTextArea.select();
         document.execCommand("copy");
         document.body.removeChild(tempTextArea);
-        alert("Copied to clipboard!");
     };
     document.getElementById("label").addEventListener('keydown', (e) => {
         if (e.key === "Enter" && document.getElementById("label").value && document.getElementById("url").value) saveData();
