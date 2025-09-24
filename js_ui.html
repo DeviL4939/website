@@ -1,68 +1,219 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Js UI</title>
-    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/15525/15525512.png" type="image/png">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Arial', sans-serif; }
-        body { background-color: #121212; color: #EEE; display: flex; justify-content: center; align-items: flex-start; height: 100vh; padding: 20px; overflow: hidden; }
-        .container { background: #1E1E1E; padding: 30px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); max-width: 450px; width: 100%; text-align: center; }
-        h2 { color: #FFF; font-size: 24px; margin-bottom: 20px; }
-        label { font-size: 16px; color: #BBB; display: block; margin-bottom: 5px; }
-        input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 6px; background: #222; border: 1px solid #333; color: #EEE; font-size: 16px; outline: none; transition: border-color 0.3s ease; }
-        input:focus { border-color: #4CAF50; }
-        .button-row { display: flex; justify-content: space-between; margin-top: 20px; }
-        button { flex: 1; padding: 12px; margin: 0 5px; border: none; border-radius: 6px; font-size: 16px; color: white; cursor: pointer; transition: background-color 0.3s ease; }
-        button:hover { background-color: #45a049; }
-        .clear-btn { background-color: #FF5722; }
-        .clear-btn:hover { background-color: #e64a19; }
-        .copy-btn { background-color: #008CBA; }
-        .copy-btn:hover { background-color: #007B9F; }
-        #output { margin-top: 20px; padding: 15px; background: #222; color: #FFF; border-radius: 6px; max-height: 200px; overflow-y: auto; text-align: left; white-space: pre-wrap; border: 1px solid #333; }
-    </style>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
+    }
+
+    body {
+      background-color: #121212;
+      color: #EEE;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      height: 100 vh;
+      padding: 20px;
+      overflow: hidden;
+    }
+
+    .container {
+      background: #1E1E1E;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+      max-width: 450px;
+      width: 100%;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    h2 {
+      color: #FFF;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-size: 16px;
+      color: #BBB;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input {
+      width: 100 %;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 6px;
+      background: #222;
+      border: 1px solid #333;
+      color: #EEE;
+      font-size: 16px;
+      outline: none;
+      transition: border-color 0.3 s ease;
+    }
+
+    input:focus {
+      border-color: #4CAF50;
+    }
+
+    .button-row {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    button {
+      flex: 1;
+      padding: 12px;
+      margin: 0 5px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .clear-btn {
+      background-color: #FF5722;
+    }
+
+    .clear-btn:hover {
+      background-color: #e64a19;
+    }
+
+    .copy-btn {
+      background-color: #008CBA;
+    }
+
+    .copy-btn:hover {
+      background-color: #007B9F;
+    }
+
+    #ot {
+      margin-top: 20px;
+      padding: 15px;
+      background: #222;
+      color: #FFF;
+      border-radius: 6px;
+      max-height: 200px;
+      overflow-y: auto;
+      text-align: left;
+      white-space: pre-wrap;
+      border: 1px solid #333;
+    }
+
+    .ref {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      margin: 0;
+      padding: 0;
+    }
+
+    .ref-button {
+      background: transparent;
+      margin-right: -5px;
+      margin-bottom: -10px;
+      padding: 0;
+      font-size: 35px;
+      line-height: 1;
+      overflow: hidden;
+      outline: none;
+      box-shadow: none;
+      -webkit-appearance: none;
+      appearance: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .ref-button:focus,
+    .ref-button:active,
+    .ref-button:focus-visible {
+      outline: none;
+      box-shadow: none;
+    }
+
+    .ref-button::-moz-focus-inner {
+      border: 0;
+    }
+
+  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
+
 <body>
-    <div class="container">
-        <h2>Generate</h2>
-        <label for="label">Label:</label>
-        <input type="text" id="label" placeholder="Enter label">
-        <label for="url">URL:</label>
-        <input type="text" id="url" placeholder="Enter URL">
-        <div class="button-row">
-            <button style="background-color: #4CAF50;" onclick="saveData()">Confirm</button>
-            <button class="clear-btn" onclick="clearOutput()">Clear</button>
-            <button class="copy-btn" onclick="copyToClipboard()">Copy</button>
-        </div>
-        <div id="output"></div>
-    </div><script>
-    const saveData = () => {
-        const label = document.getElementById("label").value, url = document.getElementById("url").value.toLowerCase();
-        if (!label || !url) return document.getElementById(label ? "url" : "label").focus();
-        document.getElementById("output").innerHTML += `<p>{ label: '${label}', url: '${url}' },</p>`;
-        document.getElementById("label").value = '';
-        document.getElementById("url").value = '';
-        document.getElementById("label").focus();
-    };
-    const clearOutput = () => { document.getElementById("output").innerHTML = ''; };
-    const copyToClipboard = () => {
-        const text = document.getElementById("output").innerText;
-        if (!text) return alert("No data to copy!");
-        const tempTextArea = document.createElement("textarea");
-        tempTextArea.value = text;
-        document.body.appendChild(tempTextArea);
-        tempTextArea.select();
-        document.execCommand("copy");
-        document.body.removeChild(tempTextArea);
-    };
-    document.getElementById("label").addEventListener('keydown', (e) => {
-        if (e.key === "Enter" && document.getElementById("label").value && document.getElementById("url").value) saveData();
-        else if (e.key === "Enter") document.getElementById("url").focus();
-    });
-    document.getElementById("url").addEventListener('keydown', (e) => {
-        if (e.key === "Enter" && document.getElementById("label").value && document.getElementById("url").value) saveData();
-        else if (e.key === "Enter") document.getElementById("label").focus();
-    });
-</script>
+  <div class="container" style="text-align: center;">
+    <h2>JS UI </h2>
+    <label for="l1">Enter the label </label>
+    <input type="text" id="l1">
+    <label for="l2">Enter the link </label>
+    <input type="text" id="l2">
+    <div class="button-row">
+      <button style="background-color: #4CAF50;" onclick="createOt()">Confirm </button>
+      <button onclick="clearOt()" class="clear-btn">Clear </button>
+      <button onclick="copyOt()" class="copy-btn">Copy </button>
+    </div>
+    <div id="ot"></div>
+    <div class="ref">
+      <button class="ref-button" onclick="Ref()">&#x27F3</button>
+    </div>
+  </div>
+  <script>
+    document.getElementById("ot").innerHTML = ''
+
+    function createOt() {
+      let l1 = document.getElementById("l1").value
+      let l2 = document.getElementById("l2").value.toLowerCase()
+      if (!l1 || !l2)
+        return document.getElementById(l1 ? "l2": "l1").focus()
+      document.getElementById("ot").innerHTML += `<p> { label: '${l1}',url: '${l2}' },</p>`
+      document.getElementById("l1").value = ''
+      document.getElementById("l2").value = ''
+      document.getElementById("l1").focus()
+    }
+
+    function clearOt() {
+      document.getElementById("ot").innerHTML = ''
+    }
+
+    function copyOt() {
+      const text = document.getElementById("ot").innerText
+      if (!text)
+        return alert("No data to copy!")
+      const tempTextArea = document.createElement("textarea")
+      tempTextArea.value = text
+      document.body.appendChild(tempTextArea)
+      tempTextArea.select()
+      document.execCommand("copy")
+      document.body.removeChild(tempTextArea)
+    }
+
+    function Ref() {
+      location.reload()
+    }
+
+    document.getElementById("l1").addEventListener('keydown', (e) => {
+      if (e.key === "Enter" && document.getElementById("l1").value && document.getElementById("l2").value) createOt()
+      else if (e.key === "Enter") document.getElementById("l2").focus()
+
+    })
+    document.getElementById("l2").addEventListener('keydown', (e) => {
+      if (e.key === "Enter" && document.getElementById("l1").value && document.getElementById("l2").value) createOt()
+      else if (e.key === "Enter") document.getElementById("l1").focus()
+    })
+  </script>
 </body>
+
 </html>
